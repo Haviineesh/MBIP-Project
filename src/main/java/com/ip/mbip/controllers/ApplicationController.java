@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/applicationcontroller")
 public class ApplicationController {
     
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "loginPage";
-    }
-
     @GetMapping("/index")
     public String testiing() {
         return "index";
