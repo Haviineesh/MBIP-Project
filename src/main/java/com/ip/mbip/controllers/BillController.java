@@ -33,9 +33,4 @@ public class BillController {
     public String showElectricBillForm() {
         return "electricBillForm";
     }
-    
-     @GetMapping("/water")
-    public String showWaterBillForm() {
-        return "waterBillForm";
-    }
 }
