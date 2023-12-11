@@ -3,12 +3,21 @@ package com.ip.mbip.model;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @EntityScan
-public class WaterBill extends Bill {
+public class WaterBill {
+    private String billID;
+    private String type;
+    private double usage;
+    private int numberOfDays;
+    private String date;
     private double waterRate;
 
     // Constructors
     public WaterBill(String billID, String type, double usage, int numberOfDays, String date, double waterRate) {
-        super(billID, type, usage, numberOfDays, date);
+        this.billID = billID;
+        this.type = type;
+        this.usage = usage;
+        this.numberOfDays = numberOfDays;
+        this.date = date;
         this.waterRate = waterRate;
     }
 
@@ -23,9 +32,9 @@ public class WaterBill extends Bill {
     }
 
     // Method to calculate total water bill
-    public double calculateTotalWaterBill() {
-        return getUsage() * waterRate;
-    }
+    // public double calculateTotalWaterBill() {
+    //     return getUsage() * waterRate;
+    // }
 
     // Override equals and hashCode methods for proper comparison
     @Override
