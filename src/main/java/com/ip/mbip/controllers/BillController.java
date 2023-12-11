@@ -13,4 +13,8 @@ public class BillController {
         return "electricBillForm";
     }
     
+     @GetMapping("/water")
+    public String showWaterBillForm() {
+        return "waterBillForm";
+    }
 }
