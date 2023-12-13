@@ -10,4 +10,9 @@ public class RecycleController {
     public String showRecyclePage() {
     return "recyclePage";
     }
+
+    @GetMapping("/recycleBillForm")
+    public String showRecycleBillForm() {
+    return "recycleBillForm";
+    }
 }
