@@ -1,47 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <title>Electric Bill Form</title>
 </head>
+
 <body>
 
-<div class="container mt-5">
-    <h2>Electric Bill Form</h2>
-    <form>
-        <!-- Bill Details -->
-        <div class="form-group">
-            <label for="type">Type</label>
-            <input type="text" class="form-control" id="type" placeholder="Enter Type">
-        </div>
-        <div class="form-group">
-            <label for="usage">Usage (kWh)</label>
-            <input type="number" class="form-control" id="usage" placeholder="Enter Usage">
-        </div>
-        <div class="form-group">
-            <label for="numberOfDays">Number of Days</label>
-            <input type="number" class="form-control" id="numberOfDays" placeholder="Enter Number of Days">
-        </div>
-        <div class="form-group">
-            <label for="date">Date</label>
-            <input type="date" class="form-control" id="date">
-        </div>
+    <div class="container mt-5">
+        <h2>Electric Bill Form</h2>
+        <form>
+            <!-- Bill Details -->
+            <div class="form-group">
+                <label for="billID">Bill ID</label>
+                <input type="text" class="form-control" id="billID" placeholder="Enter Bill ID">
+            </div>
+            <div class="form-group">
+                <label for="type">Type</label>
+                <input type="text" class="form-control" id="type" placeholder="Enter Type">
+            </div>
+            <div class="form-group">
+                <label for="usage">Usage (kWh)</label>
+                <input type="number" class="form-control" id="usage" placeholder="Enter Usage">
+            </div>
+            <div class="form-group">
+                <label for="numberOfDays">Number of Days</label>
+                <input type="number" class="form-control" id="numberOfDays" placeholder="Enter Number of Days">
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" class="form-control" id="date">
+            </div>
 
-        <!-- Electric Bill Details -->
-        <div class="form-group">
-            <label for="electricityRate">Electricity Rate</label>
-            <input type="number" class="form-control" id="electricityRate" placeholder="Enter Electricity Rate">
-        </div>
+            <!-- Electric Bill Details -->
+            <div class="form-group">
+                <label for="electricityRate">Electricity Rate</label>
+                <input type="number" class="form-control" id="electricityRate" placeholder="Enter Electricity Rate">
+            </div>
 
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+            <!-- File Upload for Bill Image -->
+            <div class="form-group">
+                <label for="billImage">Upload Bill Image</label>
+                <input type="file" class="form-control-file" id="billImage" accept="image/*">
+            </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>
