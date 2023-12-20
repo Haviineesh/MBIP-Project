@@ -10,23 +10,23 @@
 
 <div class="container mt-5">
     <h2>Recycle Bill Form</h2>
-    <form action="/water" method="post" enctype="multipart/form-data">
+    <form th:object="${recycle}" method="post" th:action="@{/save}">
         <!-- Bill Details -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="recycleID">Bill ID</label>
-            <input type="text" class="form-control" id="recycleID" placeholder="Enter Recycle ID">
+            <input type="text" class="form-control" th:field ="*{projectId}" placeholder="Enter Recycle ID">
+        </div> -->
+        <div class = "form-group">
+            <label for="contactName">Contact Name</label>
+            <input type="text" th:field ="*{contact_name}" name="contactName" class="form-control" placeholder="Enter Your Name" required>
         </div>
         <div class = "form-group">
-            <label for="contactName">User Name:</label>
-            <input type="text" id="contactName" name="contactName" class="form-control" placeholder="Enter Your Name" required>
-        </div>
-        <div class = "form-group">
-            <label for="contactPhone">Contact Number:</label>
-            <input type="number" id="contactPhone" name="contactPhone" class="form-control" placeholder="Enter Phone Number" required>
+            <label for="contactPhone">Contact Phone:</label>
+            <input type="number" th:field ="*{contact_phone}" name="contactPhone" class="form-control" placeholder="Enter Phone Number" required>
         </div>  
         <div class="form-group">
             <label for="type">Type</label>
-            <select id="type" name="type"  class="form-control" required>
+            <select th:field ="*{type}" name="type"  class="form-control" required>
                 <option value="material">Material</option>
                 <option value="glass">Glass</option>
                 <option value="paper">Paper</option>
@@ -34,17 +34,17 @@
         </div>
         <div class = "form-group">
             <label for="weight">Weight:</label>
-            <input type="number" id="weight" name="weight" class="form-control" placeholder="Enter weight" required>
+            <input type="number" th:field ="*{weight}" name="weight" class="form-control" placeholder="Enter weight" required>
         </div>
         <div class="form-group">
             <label for="date">Date</label>
-            <input type="date" class="form-control" id="date">
+            <input type="date" class="form-control" th:field ="*{date}">
         </div>
 
         <!-- Water Bill Details -->
         <div class="form-group">
-            <label for="desc">Description</label>
-            <input type="textarea" class="form-control" id="desc" placeholder="Enter Description">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" th:field ="*{description_rec}" placeholder="Enter Description">
         </div>
 
         <!-- File Upload for Bill Image -->
