@@ -1,12 +1,39 @@
 package com.ip.mbip.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "recycle")
 public class Recycle {
 
-    private String recycleID;
+    //generate Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // //define column
+    @Column(length =  100, nullable = false)
     private String type;
+
+    @Column(length =  100, nullable = false)
     private String date;
-    private String desc;
-    private String contactName;
-    private int contactPhone;
+
+    @Column(length =  100, nullable = false)
+    private String description_rec;
+
+    @Column(length =  100, nullable = false)
+    private String contact_name;
+
+   
+    private int contact_phone;
+
+    
     private double weight;
 
     // Default constructor
@@ -14,24 +41,24 @@ public class Recycle {
     }
 
     // Parameterized constructor
-    public Recycle(String recycleID, String type, String date, String desc, String contactName, int contactPhone, double weight) {
-        this.recycleID = recycleID;
+    public Recycle(Long id,String type, String date, String description_rec, String contact_name, int contact_phone, double weight) {
+        this.id = id;
         this.type = type;
         this.date = date;
-        this.desc = desc;
-        this.contactName = contactName;
-        this.contactPhone = contactPhone;
+        this.description_rec = description_rec;
+        this.contact_name = contact_name;
+        this.contact_phone = contact_phone;
         this.weight = weight;
     }
 
     // Getter and setter methods for each field
 
-    public String getRecycleID() {
-        return recycleID;
+    public Long getId() {
+        return id;
     }
 
-    public void setRecycleID(String recycleID) {
-        this.recycleID = recycleID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -50,28 +77,28 @@ public class Recycle {
         this.date = date;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription_rec() {
+        return description_rec;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription_rec(String description_rec) {
+        this.description_rec = description_rec;
     }
 
-    public String getContactName() {
-        return contactName;
+    public String getContact_name() {
+        return contact_name;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
+    public void setContact_name(String contact_name) {
+        this.contact_name = contact_name;
     }
 
-    public int getContactPhone() {
-        return contactPhone;
+    public int getContact_phone() {
+        return contact_phone;
     }
 
-    public void setContactPhone(int contactPhone) {
-        this.contactPhone = contactPhone;
+    public void setContact_phone(int contact_phone) {
+        this.contact_phone = contact_phone;
     }
 
     public double getWeight() {
