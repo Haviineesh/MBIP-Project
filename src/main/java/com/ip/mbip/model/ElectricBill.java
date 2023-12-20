@@ -1,6 +1,5 @@
 package com.ip.mbip.model;
 
-
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @EntityScan
@@ -12,8 +11,6 @@ public class ElectricBill {
     private String date;
     private double electricityRate;
 
-
-    // Constructors
     public ElectricBill(String billID, String type, double usage, int numberOfDays, String date, double electricityRate) {
         this.billID = billID;
         this.type = type;
@@ -23,8 +20,41 @@ public class ElectricBill {
         this.electricityRate = electricityRate;
     }
 
-    // Getters and setters
+    public String getBillID() {
+        return billID;
+    }
 
+    public void setBillID(String billID) {
+        this.billID = billID;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    public double getUsage() {
+        return usage;
+    }
+
+    public void setUsage(double usage) {
+        this.usage = usage;
+    }
+    public int getNumberOfDays() {
+        return numberOfDays;
+    }
+
+    public void setNumberOfDays(int numberOfDays) {
+        this.numberOfDays = numberOfDays;
+    }
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
     public double getElectricityRate() {
         return electricityRate;
     }
