@@ -45,14 +45,14 @@ public class RecycleController {
     @PostMapping("/save")
 	public String addRecycle(Recycle recycle,Model model) {
 		recycleService.addRecycle(recycle);// save product into database, using DbService
-		return "redirect:/viewRecycle";
+		return "redirect:/viewRecycleUser";
 	}
 
     @GetMapping("/deleteRec/{id}")
 	public String deleteRec(@PathVariable("id") Long id) {
 		
        recycleService.deleteById(id);
-		return "redirect:/viewRecycle";
+		return "redirect:/viewRecycleUser";
 	}
 
     @GetMapping("/editRec/{id}")
@@ -66,7 +66,7 @@ public class RecycleController {
 	public String editTestCaseForm(Recycle recycle,Model model) {
 		
         recycleService.updateRecycle(recycle);
-		return "redirect:/viewRecycle";
+		return "redirect:/viewRecycleUser";
 	}
 
     
