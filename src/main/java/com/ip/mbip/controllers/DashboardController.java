@@ -24,4 +24,10 @@ public class DashboardController {
         return "dashboard";
     }
 
+    @GetMapping("/blankfile")
+    public String showBlank() {
+        // Iterable<Recycle> recycleList = recycleService.findAll(); // Assuming you have a service for retrieving data
+        return "blankfile";
+    }
+
 }

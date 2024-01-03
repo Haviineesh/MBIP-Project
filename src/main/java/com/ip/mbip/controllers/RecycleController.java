@@ -28,11 +28,11 @@ public class RecycleController {
     private RecycleService recycleService;
 
 
-    @GetMapping("/viewRecycle")
+    @GetMapping("/viewRecycleUser")
     public String recycle(Model model) {
         // List<TestCase> cases = viewCaseService.findAllList();
         model.addAttribute("recycle", recycleService.findAll());
-        return "recyclePage";
+        return "viewRecycleUser";
     }
 
 
