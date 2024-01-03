@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,29 +19,42 @@ public class WaterBill {
 
     // //define column
     @Column(length = 100, nullable = false)
-    private String type;
-
-    @Column(length = 100, nullable = false)
     private String date;
 
-    
     private float waterUsage;
     private int numberOfDays;
     private float waterRate;
+    private float carbonFootprint;
+
+    @Lob
+    @Column(name = "bill_image")
+    private byte[] billImage; 
 
     // Constructors
     public WaterBill() {
 
     }
 
-    public WaterBill(Long id, String type, float waterUsage, int numberOfDays, String date, float waterRate) {
+    public WaterBill(Long id, float waterUsage, int numberOfDays, String date, float waterRate) {
         this.id = id;
-        this.type = type;
         this.waterUsage = waterUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.waterRate = waterRate;
+        this.carbonFootprint = calculateCarbonFootprint();
+
     }
+
+    public WaterBill(Long id, float waterUsage, int numberOfDays, String date, float waterRate, byte[] billImage) {
+        this.id = id;
+        this.waterUsage = waterUsage;
+        this.numberOfDays = numberOfDays;
+        this.date = date;
+        this.waterRate = waterRate;
+        this.billImage = billImage;
+        this.carbonFootprint = calculateCarbonFootprint();
+    }
+    
 
     // Getters and setters
 
@@ -52,14 +66,6 @@ public class WaterBill {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getDate() {
         return date;
     }
@@ -68,11 +74,11 @@ public class WaterBill {
         this.date = date;
     }
 
-    public float getUsage() {
+    public float getWaterUsage() {
         return waterUsage;
     }
 
-    public void setUsage(float waterUsage) {
+    public void setWaterUsage(float waterUsage) {
         this.waterUsage = waterUsage;
     }
 
@@ -92,6 +98,32 @@ public class WaterBill {
         this.waterRate = waterRate;
     }
 
+    public float getCarbonFootprint() {
+        return carbonFootprint;
+    }
+
+    public void setCarbonFootprint(float carbonFootprint) {
+        this.carbonFootprint = carbonFootprint;
+    }
+
+    public byte[] getBillImage() {
+        return billImage;
+    }
+
+    public void setBillImage(byte[] billImage) {
+        this.billImage = billImage;
+    }
+
+    // Method to calculate total water bill
+    public float calculateTotalWaterBill() {
+        return waterUsage * waterRate;
+    }
+
+    // Method to calculate carbon footprint based on water consumption
+    public float calculateCarbonFootprint() {
+        // Formula: {Water Consumption} * 0.419 kgCO2/m^3
+        return waterUsage * 0.419f;
+    }
 
     // Method to calculate total water bill
     // public float calculateTotalWaterBill() {
@@ -111,12 +143,17 @@ public class WaterBill {
         return Double.compare(waterBill.waterRate, waterRate) == 0;
     }
 
-    
     // Override toString for better representation
     @Override
     public String toString() {
         return "WaterBill{" +
-                "waterRate=" + waterRate +
-                "} " + super.toString();
+                "id=" + id +
+                ", date=" + date +
+                ", waterUsage=" + waterUsage +
+                ", numberOfDays=" + numberOfDays +
+                ", waterRate=" + waterRate +
+                ", carbonFootprint=" + carbonFootprint +
+                '}';
     }
+
 }
