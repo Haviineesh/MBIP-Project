@@ -16,7 +16,6 @@ public class WaterController {
     @Autowired
     private WaterService waterService;
 
-
     @GetMapping("/viewWater")
     public String ShowWaterTable(Model model) {
         // List<TestCase> cases = viewCaseService.findAllList();
@@ -24,37 +23,35 @@ public class WaterController {
         return "waterPage";
     }
 
-
     @GetMapping("/waterBillForm")
     public String showWaterBillForm(Model model) {
-        model.addAttribute("water",new WaterBill());
+        model.addAttribute("water", new WaterBill());
         return "waterBillForm";
     }
 
     @PostMapping("/savewater")
-	public String addWater(WaterBill waterBill,Model model) {
-		waterService.addWater(waterBill);// save product into database, using DbService
-		return "redirect:/viewWater";
-	}
+    public String addWater(WaterBill waterBill, Model model) {
+        waterService.addWater(waterBill);// save product into database, using DbService
+        return "redirect:/viewWater";
+    }
 
     @GetMapping("/deleteWater/{id}")
-	public String deleteRec(@PathVariable("id") Long id) {
-		
-       waterService.deleteById(id);
-		return "redirect:/viewWater";
-	}
+    public String deleteRec(@PathVariable("id") Long id) {
 
-    // @GetMapping("/editRec/{id}")
-	// public String editCase(@PathVariable("id") Long id,Model model) {
-		
-    //     model.addAttribute("water", waterService.findById(id));
-	// 	return "editWaterForm";
-	// }
+        waterService.deleteById(id);
+        return "redirect:/viewWater";
+    }
 
-    // @PostMapping("/update")
-	// public String editTestCaseForm(WaterBill waterBill,Model model) {
-		
-    //     waterService.updateWater(waterBill);
-	// 	return "redirect:/viewWater";
-	// }
+    @GetMapping("/editWaterBill/{id}")
+    public String editCase(@PathVariable("id") Long id, Model model) {
+
+        model.addAttribute("water", waterService.findById(id));
+        return "editWaterForm";
+    }
+
+    @PostMapping("/updateWater")
+    public String editTestCaseForm(WaterBill water, Model model) {
+        waterService.updateWater(water);
+        return "redirect:/viewWater";
+    }
 }

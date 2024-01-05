@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>Water Bill</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -62,6 +62,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Bill Number</th>
                                         <th scope="col">Usage</th>
+                                        <th scope="col">Days</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Water Rate</th>
                                         <th scope="col">Carbon Footprint kgCO₂</th>
@@ -73,11 +74,12 @@
                                         <td th:text="${iStat.count}"></td>
                                         <td th:text="${water.billNumber}"></td>
                                         <td th:text="${water.waterUsage}"></td>
+                                        <td th:text="${water.numberOfDays}"></td>
                                         <td th:text="${water.date}"></td>
                                         <td th:text="${water.waterRate}"></td>
                                         <td th:text="${water.carbonFootprint }"></td>
                                         <td>
-                                            <a class="btn btn-warning" th:href="@{'/editWater/' +${water.id}}">
+                                            <a class="btn btn-warning" th:href="@{'/editWaterBill/' +${water.id}}">
                                                 Edit
                                             </a>
                                             <button class="btn btn-danger" data-toggle="modal"
