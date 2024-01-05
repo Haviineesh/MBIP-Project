@@ -21,10 +21,10 @@ public class WaterBill {
     @Column(length = 100, nullable = false)
     private String date;
 
-    private float waterUsage;
+    private double waterUsage;
     private int numberOfDays;
-    private float waterRate;
-    private float carbonFootprint;
+    private double waterRate;
+    private double carbonFootprint;
 
     @Lob
     @Column(name = "bill_image")
@@ -35,24 +35,21 @@ public class WaterBill {
 
     }
 
-    public WaterBill(Long id, float waterUsage, int numberOfDays, String date, float waterRate) {
+    public WaterBill(Long id, double waterUsage, int numberOfDays, String date, double waterRate) {
         this.id = id;
         this.waterUsage = waterUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.waterRate = waterRate;
-        this.carbonFootprint = calculateCarbonFootprint();
-
     }
 
-    public WaterBill(Long id, float waterUsage, int numberOfDays, String date, float waterRate, byte[] billImage) {
+    public WaterBill(Long id, double waterUsage, int numberOfDays, String date, double waterRate, byte[] billImage) {
         this.id = id;
         this.waterUsage = waterUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.waterRate = waterRate;
         this.billImage = billImage;
-        this.carbonFootprint = calculateCarbonFootprint();
     }
     
 
@@ -74,12 +71,13 @@ public class WaterBill {
         this.date = date;
     }
 
-    public float getWaterUsage() {
+    public double getWaterUsage() {
         return waterUsage;
     }
 
-    public void setWaterUsage(float waterUsage) {
+    public void setWaterUsage(double waterUsage) {
         this.waterUsage = waterUsage;
+        this.carbonFootprint = calculateCarbonFootprint();
     }
 
     public int getNumberOfDays() {
@@ -90,19 +88,19 @@ public class WaterBill {
         this.numberOfDays = numberOfDays;
     }
 
-    public float getWaterRate() {
+    public double getWaterRate() {
         return waterRate;
     }
 
-    public void setWaterRate(float waterRate) {
+    public void setWaterRate(double waterRate) {
         this.waterRate = waterRate;
     }
 
-    public float getCarbonFootprint() {
+    public double getCarbonFootprint() {
         return carbonFootprint;
     }
 
-    public void setCarbonFootprint(float carbonFootprint) {
+    public void setCarbonFootprint(double carbonFootprint) {
         this.carbonFootprint = carbonFootprint;
     }
 
@@ -115,18 +113,18 @@ public class WaterBill {
     }
 
     // Method to calculate total water bill
-    public float calculateTotalWaterBill() {
+    public double calculateTotalWaterBill() {
         return waterUsage * waterRate;
     }
 
     // Method to calculate carbon footprint based on water consumption
-    public float calculateCarbonFootprint() {
+    public double calculateCarbonFootprint() {
         // Formula: {Water Consumption} * 0.419 kgCO2/m^3
         return waterUsage * 0.419f;
     }
 
     // Method to calculate total water bill
-    // public float calculateTotalWaterBill() {
+    // public double calculateTotalWaterBill() {
     // return getUsage() * waterRate;
     // }
 
