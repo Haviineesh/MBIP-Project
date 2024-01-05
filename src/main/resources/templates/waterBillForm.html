@@ -44,37 +44,73 @@
                     <!-- Page Heading -->
                     <div class="container mt-5">
                         <h2>Water Bill Form</h2>
-                
-                        <form th:object="${water}" action="/savewater" method="post" enctype="multipart/form-data">
+
+                        <form th:object="${water}" action="/savewater" method="post" enctype="multipart/form-data"
+                            onsubmit="return validateForm()">
                             <!-- Bill Details -->
                             <div class="form-group">
+                                <label for="numberOfDays">Bill Number</label>
+                                <input type="number" class="form-control" th:field="*{billNumber}"
+                                    placeholder="Enter Bill Number" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="waterUsage">Usage</label>
-                                <input type="text" class="form-control" th:field="*{waterUsage}" placeholder="Enter Usage">
+                                <input type="text" class="form-control" th:field="*{waterUsage}"
+                                    th:value="${water.waterUsage != 0 ? water.waterUsage : ''}"
+                                    placeholder="Enter Usage" required>
                             </div>
                             <div class="form-group">
                                 <label for="numberOfDays">Number of Days</label>
-                                <input type="number" class="form-control" th:field ="*{numberOfDays}" placeholder="Enter Number of Days">
+                                <input type="number" class="form-control" th:field="*{numberOfDays}"
+                                    placeholder="Enter Number of Days">
                             </div>
                             <div class="form-group">
                                 <label for="date">Date</label>
-                                <input type="date" class="form-control" th:field ="*{date}" placeholder="Enter Date">
+                                <input type="date" class="form-control" th:field="*{date}" placeholder="Enter Date"
+                                    required>
                             </div>
-                
+
                             <!-- Water Bill Details -->
                             <div class="form-group">
                                 <label for="waterRate">Water Rate</label>
-                                <input type="text" class="form-control" th:field ="*{waterRate}" placeholder="Enter Water Rate">
+                                <input type="text" class="form-control" th:field="*{waterRate}"
+                                    placeholder="Enter Water Rate">
                             </div>
-                
+
                             <!-- File Upload for Bill Image -->
                             <!-- <div class="form-group">
                                 <label for="billImage">Upload Bill Image</label>
                                 <input type="file" class="form-control-file" id="billImage" name="billImage" accept="image/*">
                             </div> -->
-                
+
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
+
+                        <script>
+                            function validateForm() {
+                                // Get the values from the form fields
+                                var billNumber = document.getElementById('billNumber').value;
+                                var waterUsage = parseFloat(document.getElementById('waterUsage').value);
+                                var waterRate = parseFloat(document.getElementById('waterRate').value);
+
+                                // Check if billNumber is not 8 digits
+                                if (billNumber.length !== 8) {
+                                    alert("Bill Number should be 8 digits long.");
+                                    return false; // Prevent form submission
+                                }
+
+                                // Check if values are zero
+                                if (waterUsage === 0 || waterRate === 0) {
+                                    alert("Usage and Water Rate should not be 0.");
+                                    return false; // Prevent form submission
+                                }
+
+                                // Additional validation if needed
+
+                                return true; // Allow form submission
+                            }
+                        </script>
                     </div>
 
                 </div>

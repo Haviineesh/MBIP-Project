@@ -60,22 +60,22 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Bill ID</th>
+                                        <th scope="col">Bill Number</th>
                                         <th scope="col">Usage</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Water Rate</th>
-                                        <th scope="col">Carbon Footprint</th>
+                                        <th scope="col">Carbon Footprint kgCO₂</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="water, iStat : ${water}">
                                         <td th:text="${iStat.count}"></td>
-                                        <td th:text="${water.id}"></td>
+                                        <td th:text="${water.billNumber}"></td>
                                         <td th:text="${water.waterUsage}"></td>
                                         <td th:text="${water.date}"></td>
                                         <td th:text="${water.waterRate}"></td>
-                                        <td th:text="${water.carbonFootprint}"></td>
+                                        <td th:text="${water.carbonFootprint }"></td>
                                         <td>
                                             <a class="btn btn-warning" th:href="@{'/editWater/' +${water.id}}">
                                                 Edit

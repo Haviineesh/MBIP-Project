@@ -21,6 +21,7 @@ public class WaterBill {
     @Column(length = 100, nullable = false)
     private String date;
 
+    private int billNumber;
     private double waterUsage;
     private int numberOfDays;
     private double waterRate;
@@ -28,30 +29,32 @@ public class WaterBill {
 
     @Lob
     @Column(name = "bill_image")
-    private byte[] billImage; 
+    private byte[] billImage;
 
     // Constructors
     public WaterBill() {
 
     }
 
-    public WaterBill(Long id, double waterUsage, int numberOfDays, String date, double waterRate) {
+    public WaterBill(Long id, int billNumber, double waterUsage, int numberOfDays, String date, double waterRate) {
         this.id = id;
+        this.billNumber = billNumber;
         this.waterUsage = waterUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.waterRate = waterRate;
     }
 
-    public WaterBill(Long id, double waterUsage, int numberOfDays, String date, double waterRate, byte[] billImage) {
+    public WaterBill(Long id, int billNumber, double waterUsage, int numberOfDays, String date, double waterRate,
+            byte[] billImage) {
         this.id = id;
+        this.billNumber = billNumber;
         this.waterUsage = waterUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.waterRate = waterRate;
         this.billImage = billImage;
     }
-    
 
     // Getters and setters
 
@@ -61,6 +64,14 @@ public class WaterBill {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(int billNumber) {
+        this.billNumber = billNumber;
     }
 
     public String getDate() {
