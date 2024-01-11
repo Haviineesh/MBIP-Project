@@ -1,18 +1,37 @@
 package com.ip.mbip.model;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
-@EntityScan
+@Entity
+@Table(name = "electricBill")
 public class ElectricBill {
-    private String billID;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 100, nullable = false)
+    private String date;
+
+    private int billNumber;
     private String type;
     private double usage;
     private int numberOfDays;
-    private String date;
     private double electricityRate;
+    private double carbonFootprint;
 
-    public ElectricBill(String billID, String type, double usage, int numberOfDays, String date, double electricityRate) {
-        this.billID = billID;
+    public ElectricBill() {
+    }
+
+    public ElectricBill(Long id, int billNumber, String type, double usage, int numberOfDays, String date,
+            double electricityRate) {
+        this.id = id;
+        this.billNumber = billNumber;
         this.type = type;
         this.usage = usage;
         this.numberOfDays = numberOfDays;
@@ -20,13 +39,22 @@ public class ElectricBill {
         this.electricityRate = electricityRate;
     }
 
-    public String getBillID() {
-        return billID;
+    public Long getID() {
+        return id;
     }
 
-    public void setBillID(String billID) {
-        this.billID = billID;
+    public void setID(Long id) {
+        this.id = id;
     }
+
+    public int getBillNumber() {
+        return billNumber;
+    }
+
+    public void setBillNumber(int billNumber) {
+        this.billNumber = billNumber;
+    }
+
     public String getType() {
         return type;
     }
@@ -34,13 +62,16 @@ public class ElectricBill {
     public void setType(String type) {
         this.type = type;
     }
+
     public double getUsage() {
         return usage;
     }
 
     public void setUsage(double usage) {
         this.usage = usage;
+        this.carbonFootprint = calculateCarbonFootprint();
     }
+
     public int getNumberOfDays() {
         return numberOfDays;
     }
@@ -48,6 +79,7 @@ public class ElectricBill {
     public void setNumberOfDays(int numberOfDays) {
         this.numberOfDays = numberOfDays;
     }
+
     public String getDate() {
         return date;
     }
@@ -55,6 +87,7 @@ public class ElectricBill {
     public void setDate(String date) {
         this.date = date;
     }
+
     public double getElectricityRate() {
         return electricityRate;
     }
@@ -63,9 +96,17 @@ public class ElectricBill {
         this.electricityRate = electricityRate;
     }
 
+    public double getCarbonFootprint() {
+        return carbonFootprint;
+    }
+
+    public void setCarbonFootprint(double carbonFootprint) {
+        this.carbonFootprint = carbonFootprint;
+    }
+
     // Method to calculate carbon footprint for electricity consumption
-    // public double calculateCarbonFootprint() {
-    //     // Assuming a constant conversion rate of 0.584 kgCO2/kWh
-    //     return getUsage() * electricityRate * 0.584;
-    // }
+    public double calculateCarbonFootprint() {
+        // Assuming a constant conversion rate of 0.584 kgCO2/kWh
+        return getUsage() * electricityRate * 0.584;
+    }
 }
