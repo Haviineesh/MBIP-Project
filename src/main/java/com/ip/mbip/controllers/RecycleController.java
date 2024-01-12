@@ -1,15 +1,19 @@
 package com.ip.mbip.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ip.mbip.model.Recycle;
+import com.ip.mbip.model.WaterBill;
 import com.ip.mbip.repository.RecycleRepo;
 import com.ip.mbip.service.RecycleService;
 
@@ -18,15 +22,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @Controller
 // @RequestMapping(value = "/api/recycle")
 public class RecycleController {
 
     @Autowired
     private RecycleService recycleService;
-
 
     @GetMapping("/viewRecycleUser")
     public String recycle(Model model) {
@@ -35,10 +36,9 @@ public class RecycleController {
         return "viewRecycleUser";
     }
 
-
     @GetMapping("/recycleBillForm")
     public String showRecycleBillForm(Model model) {
-        model.addAttribute("recycle",new Recycle());
+        model.addAttribute("recycle", new Recycle());
         return "recycleBillForm";
     }
 
@@ -49,25 +49,24 @@ public class RecycleController {
 	}
 
     @GetMapping("/deleteRec/{id}")
-	public String deleteRec(@PathVariable("id") Long id) {
-		
-       recycleService.deleteById(id);
-		return "redirect:/viewRecycleUser";
-	}
+    public String deleteRec(@PathVariable("id") Long id) {
+
+        recycleService.deleteById(id);
+        return "redirect:/viewRecycleUser";
+    }
 
     @GetMapping("/editRec/{id}")
-	public String editCase(@PathVariable("id") Long id,Model model) {
-		
+    public String editCase(@PathVariable("id") Long id, Model model) {
+
         model.addAttribute("recycle", recycleService.findById(id));
-		return "editRecycleForm";
-	}
+        return "editRecycleForm";
+    }
 
     @PostMapping("/update")
-	public String editTestCaseForm(Recycle recycle,Model model) {
-		
-        recycleService.updateRecycle(recycle);
-		return "redirect:/viewRecycleUser";
-	}
+    public String editTestCaseForm(Recycle recycle, Model model) {
 
-    
+        recycleService.updateRecycle(recycle);
+        return "redirect:/viewRecycleUser";
+    }
+
 }
