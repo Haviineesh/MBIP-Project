@@ -1,11 +1,11 @@
 package com.ip.mbip.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 
 @Entity
 @Table(name = "electricBill")
@@ -20,7 +20,7 @@ public class ElectricBill {
 
     private int billNumber;
     private String type;
-    private double usage;
+    private double electricityUsage;
     private int numberOfDays;
     private double electricityRate;
     private double carbonFootprint;
@@ -28,12 +28,12 @@ public class ElectricBill {
     public ElectricBill() {
     }
 
-    public ElectricBill(Long id, int billNumber, String type, double usage, int numberOfDays, String date,
+    public ElectricBill(Long id, int billNumber, String type, double electricityUsage, int numberOfDays, String date,
             double electricityRate) {
         this.id = id;
         this.billNumber = billNumber;
         this.type = type;
-        this.usage = usage;
+        this.electricityUsage = electricityUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.electricityRate = electricityRate;
@@ -64,11 +64,11 @@ public class ElectricBill {
     }
 
     public double getUsage() {
-        return usage;
+        return electricityUsage;
     }
 
-    public void setUsage(double usage) {
-        this.usage = usage;
+    public void setUsage(double electricityUsage) {
+        this.electricityUsage = electricityUsage;
         this.carbonFootprint = calculateCarbonFootprint();
     }
 
