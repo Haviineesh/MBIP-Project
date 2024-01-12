@@ -18,9 +18,11 @@ public class ElectricBill {
     @Column(length = 100, nullable = false)
     private String date;
 
-    private int billNumber;
+    @Column(length = 100, nullable = false)
     private String type;
-    private double usage;
+
+    private int billNumber;
+    private double EletricUsage;
     private int numberOfDays;
     private double electricityRate;
     private double carbonFootprint;
@@ -28,15 +30,16 @@ public class ElectricBill {
     public ElectricBill() {
     }
 
-    public ElectricBill(Long id, int billNumber, String type, double usage, int numberOfDays, String date,
-            double electricityRate) {
+    public ElectricBill(Long id, int billNumber, String type, double EletricUsage, int numberOfDays, String date,
+            double electricityRate,double carbonFootprint) {
         this.id = id;
         this.billNumber = billNumber;
         this.type = type;
-        this.usage = usage;
+        this.EletricUsage = EletricUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.electricityRate = electricityRate;
+        this.carbonFootprint = carbonFootprint;
     }
 
     public Long getID() {
@@ -63,12 +66,12 @@ public class ElectricBill {
         this.type = type;
     }
 
-    public double getUsage() {
-        return usage;
+    public double getEletricUsage() {
+        return EletricUsage;
     }
 
-    public void setUsage(double usage) {
-        this.usage = usage;
+    public void setEletricUsage(double EletricUsage) {
+        this.EletricUsage = EletricUsage;
         this.carbonFootprint = calculateCarbonFootprint();
     }
 
@@ -107,6 +110,6 @@ public class ElectricBill {
     // Method to calculate carbon footprint for electricity consumption
     public double calculateCarbonFootprint() {
         // Assuming a constant conversion rate of 0.584 kgCO2/kWh
-        return getUsage() * electricityRate * 0.584;
+        return getEletricUsage() * electricityRate * 0.584;
     }
 }
