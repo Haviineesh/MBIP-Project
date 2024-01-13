@@ -1,11 +1,11 @@
 package com.ip.mbip.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 
 @Entity
 @Table(name = "electricBill")
@@ -18,11 +18,9 @@ public class ElectricBill {
     @Column(length = 100, nullable = false)
     private String date;
 
-    @Column(length = 100, nullable = false)
-    private String type;
-
     private int billNumber;
-    private double EletricUsage;
+    private String type;
+    private double electricityUsage;
     private int numberOfDays;
     private double electricityRate;
     private double carbonFootprint;
@@ -30,16 +28,15 @@ public class ElectricBill {
     public ElectricBill() {
     }
 
-    public ElectricBill(Long id, int billNumber, String type, double EletricUsage, int numberOfDays, String date,
-            double electricityRate,double carbonFootprint) {
+    public ElectricBill(Long id, int billNumber, String type, double electricityUsage, int numberOfDays, String date,
+            double electricityRate) {
         this.id = id;
         this.billNumber = billNumber;
         this.type = type;
-        this.EletricUsage = EletricUsage;
+        this.electricityUsage = electricityUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
         this.electricityRate = electricityRate;
-        this.carbonFootprint = carbonFootprint;
     }
 
     public Long getID() {
@@ -66,12 +63,12 @@ public class ElectricBill {
         this.type = type;
     }
 
-    public double getEletricUsage() {
-        return EletricUsage;
+    public double getUsage() {
+        return electricityUsage;
     }
 
-    public void setEletricUsage(double EletricUsage) {
-        this.EletricUsage = EletricUsage;
+    public void setUsage(double electricityUsage) {
+        this.electricityUsage = electricityUsage;
         this.carbonFootprint = calculateCarbonFootprint();
     }
 
@@ -110,6 +107,6 @@ public class ElectricBill {
     // Method to calculate carbon footprint for electricity consumption
     public double calculateCarbonFootprint() {
         // Assuming a constant conversion rate of 0.584 kgCO2/kWh
-        return getEletricUsage() * electricityRate * 0.584;
+        return getUsage() * electricityRate * 0.584;
     }
 }
