@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "electricBill")
+@Table(name = "electric")
 public class ElectricBill {
 
     @Id
@@ -19,6 +19,8 @@ public class ElectricBill {
     private String date;
 
     private int billNumber;
+
+    @Column(length = 100, nullable = false)
     private String type;
     private double electricityUsage;
     private int numberOfDays;
