@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import com.ip.mbip.model.User;
 import com.ip.mbip.service.UserService;
 
@@ -32,13 +31,19 @@ public class UserController {
         return "redirect:/login";
     }
 
-    // @PostMapping("/login")
-    // public String loginProcess(@RequestParam("username") String username,
-    // @RequestParam("password") String password) {
-
-    // // UserService userService = userService.findByUsername(username);
-
-    // return null;
-    // }
-
+    @PostMapping("/login")
+    public String loginProcess(@RequestParam("username") String username,
+                               @RequestParam("password") String password,
+                               Model model) {
+        // Validate login credentials, you can use userService methods for authentication.
+        // For example:
+        if (userService.authenticateUser(username, password)) {
+            // Successful login, redirect to the dashboard or home page
+            return "redirect:/homepage";
+        } else {
+            // Failed login, add error message to the model and return to the login page
+            model.addAttribute("error", "Invalid username or password");
+            return "loginPage";
+        }
+    }
 }

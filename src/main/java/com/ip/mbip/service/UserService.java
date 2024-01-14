@@ -20,7 +20,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
 
-   
     private final PasswordEncoder passwordEncoder;
 
     public UserService(PasswordEncoder passwordEncoder) {
@@ -52,20 +51,17 @@ public class UserService implements UserDetailsService {
             System.err.println("Error adding user: " + e.getMessage());
         }
     }
-    
-    
+
+    public boolean authenticateUser(String username, String password) {
+        User user = userRepo.findByUsername(username);
+
+        // Assuming user is not null, add null check as needed
+        return passwordEncoder.matches(password, user.getPassword());
+    }
 
     public Iterable<User> findAll() {
         return userRepo.findAll();
     }
-
-    // public void deleteById(Long id) {
-    // userRepo.deleteById(id);
-    // }
-
-    // public void updateUser(User user) {
-    // userRepo.save(user);
-    // }
 
     public Optional<User> findById(Long id) {
         return userRepo.findById(id);
