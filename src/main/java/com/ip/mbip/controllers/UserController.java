@@ -1,7 +1,5 @@
 package com.ip.mbip.controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,53 +9,36 @@ import com.ip.mbip.model.User;
 import com.ip.mbip.service.UserService;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
-    public String test(Model model) {
-        Iterable<User> users = userService.findAll();
-        model.addAttribute("users", users);
-        return "index";
-    }
-
-    @GetMapping("/add")
-    public String addUserForm(Model model) {
+    @GetMapping("/login")
+    public String showLoginPage(Model model) {
         model.addAttribute("user", new User());
-        return "addUser";
+        return "loginPage";
     }
 
-    @PostMapping("/add")
-    public String addUser(@ModelAttribute User user) {
+    @GetMapping("/createaccount")
+    public String showCreateAccountPage(Model model) {
+        model.addAttribute("user", new User());
+        return "createaccount";
+    }
+
+    @PostMapping("/createaccount")
+    public String createAccount(@ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/user/";
+        return "redirect:/login";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editUserForm(@PathVariable Long id, Model model) {
-        Optional<User> user = userService.findById(id);
-        user.ifPresent(value -> model.addAttribute("user", value));
-        return "editUser";
-    }
+    // @PostMapping("/login")
+    // public String loginProcess(@RequestParam("username") String username,
+    // @RequestParam("password") String password) {
 
-    @PostMapping("/edit/{id}")
-    public String editUser(@PathVariable Long id, @ModelAttribute User updatedUser) {
-        Optional<User> existingUser = userService.findById(id);
-        existingUser.ifPresent(user -> {
-            user.setName(updatedUser.getName());
-            user.setEmail(updatedUser.getEmail());
-            // Update other fields as needed
-            userService.updateUser(user);
-        });
-        return "redirect:/user/";
-    }
+    // // UserService userService = userService.findByUsername(username);
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userService.deleteById(id);
-        return "redirect:/user/";
-    }
+    // return null;
+    // }
+
 }

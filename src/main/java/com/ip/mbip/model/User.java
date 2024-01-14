@@ -1,5 +1,7 @@
 package com.ip.mbip.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,40 +17,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int userID;
+    @Column(length = 50, nullable = false, unique = true)
+    private String username;
 
-    @Column(length = 100, nullable = false)
-    private String name;
-
-    @Column(length = 50, nullable = false)
+    @Column(length = 300, nullable = false)
     private String password;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true) 
     private String email;
 
     public User() {
     }
 
-    public User(Long id, int userID, String name, String password, String email) {
+    public User(Long id, String username, String password, String email) {
         this.id = id;
-        this.userID = userID;
-        this.name = name;
+        this.username = username;
         this.password = password;
         this.email = email;
-    } 
+    }
 
-    //getter
+    // getter
     public Long getID() {
         return id;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -59,17 +53,12 @@ public class User {
         return email;
     }
 
-    //setter
     public void setID(Long id) {
         this.id = id;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {
@@ -78,5 +67,19 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username) &&
+                Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, email);
     }
 }
