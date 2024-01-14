@@ -18,11 +18,11 @@ public class ElectricBill {
     @Column(length = 100, nullable = false)
     private String date;
 
-    private int billNumber;
-
     @Column(length = 100, nullable = false)
     private String type;
+
     private double electricityUsage;
+    private int billNumber;
     private int numberOfDays;
     private double electricityRate;
     private double carbonFootprint;
