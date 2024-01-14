@@ -11,6 +11,13 @@
 
     <title>SB Admin 2 - Blank</title>
 
+    <!-- FullCalendar CSS -->
+<link rel="stylesheet" href="https://fullcalendar.io/releases/core/5.10.1/main.min.css" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+
+<!-- FullCalendar JavaScript -->
+<script src="https://fullcalendar.io/releases/core/5.10.1/main.min.js" integrity="sha384-8/2VXExeIoTQ8Adznrcb0BmvJc3e2b0FF3O+2K5LfeAwB3/DwWynU/6jU6+LbXM5" crossorigin="anonymous"></script>
+
+
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -42,35 +49,9 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Recycle (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">2000 Kg</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
+                    <h1 class="h3 mb-4 text-gray-800">Calendar</h1>
                     
-
-
-              
-
+                    
 
                 </div>
                 <!-- /.container-fluid -->
@@ -118,6 +99,30 @@
             </div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            // Your FullCalendar configuration options go here
+        });
+
+        calendar.render();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            // Your FullCalendar configuration options go here
+        });
+
+        calendar.render();
+    });
+</script>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
