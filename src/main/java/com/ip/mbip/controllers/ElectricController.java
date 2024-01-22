@@ -31,7 +31,7 @@ public class ElectricController {
 
     @PostMapping("/saveElectric")
     public String addElectric(ElectricBill electricBill, Model model) {
-        electricService.addElectric(electricBill);// save product into database, using DbService
+        electricService.addElectric(electricBill);
         return "redirect:/viewElectric";
     }
 

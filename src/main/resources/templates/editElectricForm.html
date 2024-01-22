@@ -11,9 +11,9 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-  />
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
     <title>Electric Bill Form</title>
     <style>
       body {
@@ -30,11 +30,15 @@
     </style>
   </head>
 
-  <body>           
+  <body>
     <div class="container">
       <h2 class="mb-4">Electric Bill Form</h2>
 
-      <form th:object="${electric}" method="post" th:action="@{/updateElectric}">
+      <form
+        th:object="${electric}"
+        method="post"
+        th:action="@{/updateElectric}"
+      >
         <input type="hidden" th:field="*{id}" />
         <div class="form-row">
           <div class="form-group col-md-6">
@@ -50,23 +54,28 @@
           </div>
           <div class="form-group col-md-6">
             <label for="type">Type</label>
-            <select class="form-control" th:field ="*{type}" name="type" required>
-                <option value="" disabled selected>Select Type</option>
-                <option value="residential">Residential</option>
-                <option value="industrial">Industrial</option>
-                <option value="commercial">Commercial</option>
+            <select
+              class="form-control"
+              th:field="*{type}"
+              name="type"
+              required
+            >
+              <option value="" disabled selected>Select Type</option>
+              <option value="residential">Residential</option>
+              <option value="industrial">Industrial</option>
+              <option value="commercial">Commercial</option>
             </select>
-        </div>
+          </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="usage">Usage (kWh)</label>
+            <label for="electricUsage">Electric Usage (kWh)</label>
             <input
               type="number"
               class="form-control"
-              name="usage"
-              th:field ="*{usage}"
-              placeholder="Enter Usage"
+              name="electricUsage"
+              th:field="*{electricUsage}"
+              placeholder="Enter Electricity Usage"
               required
             />
           </div>
@@ -76,7 +85,7 @@
               type="number"
               class="form-control"
               name="numberOfDays"
-              th:field ="*{numberOfDays}"
+              th:field="*{numberOfDays}"
               placeholder="Enter Number of Days"
               required
             />
@@ -84,7 +93,13 @@
         </div>
         <div class="form-group">
           <label for="date">Date</label>
-          <input type="date" class="form-control" name="date"  th:field ="*{date}" required/>
+          <input
+            type="date"
+            class="form-control"
+            name="date"
+            th:field="*{date}"
+            required
+          />
         </div>
 
         <div class="form-row">
@@ -94,18 +109,23 @@
               type="number"
               class="form-control"
               name="electricityRate"
-              th:field ="*{electricityRate}"
+              th:field="*{electricityRate}"
               placeholder="Enter Electricity Rate"
               required
             />
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button
+          type="submit"
+          class="btn btn-danger"
+          onclick="window.location.href='/viewElectric'"
+        >
+          Back
+        </button>
       </form>
     </div>
-
-            
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
