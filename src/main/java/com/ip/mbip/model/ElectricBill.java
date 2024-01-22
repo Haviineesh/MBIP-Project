@@ -18,9 +18,6 @@ public class ElectricBill {
     @Column(length = 100, nullable = false)
     private String date;
 
-    @Column(length = 100, nullable = false)
-    private String type;
-
     private double electricUsage;
     private int billNumber;
     private int numberOfDays;
@@ -30,11 +27,10 @@ public class ElectricBill {
     public ElectricBill() {
     }
 
-    public ElectricBill(Long id, int billNumber, String type, double electricUsage, int numberOfDays, String date,
+    public ElectricBill(Long id, int billNumber, double electricUsage, int numberOfDays, String date,
             double electricityRate) {
         this.id = id;
         this.billNumber = billNumber;
-        this.type = type;
         this.electricUsage = electricUsage;
         this.numberOfDays = numberOfDays;
         this.date = date;
@@ -55,14 +51,6 @@ public class ElectricBill {
 
     public void setBillNumber(int billNumber) {
         this.billNumber = billNumber;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public double getElectricUsage() {

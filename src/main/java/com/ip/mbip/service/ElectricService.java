@@ -45,7 +45,6 @@ public class ElectricService {
 
             // Update the fields of the existingWater with the values from updatedWater
             existingElectricBill.setDate(electricBill.getDate());
-            existingElectricBill.setType(electricBill.getType());
             existingElectricBill.setElectricUsage(electricBill.getElectricUsage());
             existingElectricBill.setNumberOfDays(electricBill.getNumberOfDays());
             existingElectricBill.setElectricityRate(electricBill.getElectricityRate());
