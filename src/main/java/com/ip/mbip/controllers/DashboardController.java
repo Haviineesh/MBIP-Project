@@ -10,17 +10,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.ip.mbip.model.Recycle;
 import com.ip.mbip.repository.RecycleRepo;
 import com.ip.mbip.service.RecycleService;
+import com.ip.mbip.service.WaterService;
 
 @Controller
 public class DashboardController {
 
     @Autowired
     private  RecycleService recycleService;
+    private WaterService waterService;
 
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {
         // Iterable<Recycle> recycleList = recycleService.findAll(); // Assuming you have a service for retrieving data
+        Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
+        model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
         model.addAttribute("recycleList", recycleService.findAll());
+
+        // Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
+        // model.addAttribute("totalWaterCarbon", totalWaterCarbon);
+
         return "dashboard";
     }
 

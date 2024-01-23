@@ -88,7 +88,7 @@ public class WaterBill {
 
     public void setWaterUsage(double waterUsage) {
         this.waterUsage = waterUsage;
-        this.carbonFootprint = calculateCarbonFootprint();
+        setCarbonFootprint(calculateCarbonFootprint());
     }
 
     public int getNumberOfDays() {

@@ -22,6 +22,8 @@ public class RecycleService {
     }
 
     public void addRecycle(Recycle recycle){
+        // Calculate and save carbon footprint before saving to the database
+        recycle.setCarbonFootprint(recycle.calculateCarbonFootprint());
         recycleRepo.save(recycle);
     }
 
@@ -30,6 +32,8 @@ public class RecycleService {
     }
 
     public void updateRecycle(Recycle recycle){
+        // Calculate and save carbon footprint before saving to the database
+        recycle.setCarbonFootprint(recycle.calculateCarbonFootprint());
         recycleRepo.save(recycle);
     }
 
@@ -37,7 +41,8 @@ public class RecycleService {
         return recycleRepo.findById(id);
     }
 
-
-    
-
+    public Double calculateTotalCarbonFootprint() {
+        return recycleRepo.calculateTotalCarbonFootprint();
+    }
 }
+

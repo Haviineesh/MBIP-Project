@@ -32,6 +32,8 @@ public class RecycleController {
     @GetMapping("/viewRecycleUser")
     public String recycle(Model model) {
         // List<TestCase> cases = viewCaseService.findAllList();
+        // Add logic to fetch weight
+
         model.addAttribute("recycle", recycleService.findAll());
         return "viewRecycleUser";
     }

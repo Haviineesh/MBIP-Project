@@ -34,8 +34,9 @@ public class Recycle {
    
     private int contact_phone;
 
-    
     private double weight;
+
+    private double carbonFootprint;
 
 
     // Default constructor
@@ -43,7 +44,7 @@ public class Recycle {
     }
 
     // Parameterized constructor
-    public Recycle(Long id,String type, String date, String description_rec, String contact_name, int contact_phone, double weight) {
+    public Recycle(Long id,String type, String date, String description_rec, String contact_name, int contact_phone, double weight,double carbonFootprint) {
         this.id = id;
         this.type = type;
         this.date = date;
@@ -51,6 +52,7 @@ public class Recycle {
         this.contact_name = contact_name;
         this.contact_phone = contact_phone;
         this.weight = weight;
+        this.carbonFootprint = carbonFootprint;
     }
 
     // Getter and setter methods for each field
@@ -109,5 +111,23 @@ public class Recycle {
 
     public void setWeight(double weight) {
         this.weight = weight;
+        setCarbonFootprint(calculateCarbonFootprint());
+
     }
+
+    public double getCarbonFootprint() {
+        return carbonFootprint;
+    }
+
+    public void setCarbonFootprint(double carbonFootprint) {
+        this.carbonFootprint = carbonFootprint;
+        
+    }
+
+    public double calculateCarbonFootprint() {
+        // Formula: {Water Consumption} * 0.286 kgCO2/m^3
+        return weight * 0.286f;
+    }
+
+
 }

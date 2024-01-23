@@ -23,6 +23,7 @@ public class WaterService {
 
     public void addWater(WaterBill water) {
         Optional<WaterBill> existingWater = waterRepo.findByBillNumber(water.getBillNumber());
+        water.setCarbonFootprint(water.calculateCarbonFootprint());
 
         if (existingWater.isPresent()) {
             //add exception
@@ -38,6 +39,7 @@ public class WaterService {
 
     public void updateWater(WaterBill updatedWater) {
         Optional<WaterBill> existingWaterOptional = waterRepo.findById(updatedWater.getId());
+        updatedWater.setCarbonFootprint(updatedWater.calculateCarbonFootprint());
 
         if (existingWaterOptional.isPresent()) {
             WaterBill existingWater = existingWaterOptional.get();
@@ -59,6 +61,10 @@ public class WaterService {
 
     public Optional<WaterBill> findById(long id) {
         return waterRepo.findById(id);
+    }
+
+    public Double calculateTotalCarbonFootprint() {
+        return waterRepo.calculateTotalCarbonFootprint();
     }
 
 }
