@@ -39,14 +39,13 @@ public class ElectricService {
 
     public void updateElectric(ElectricBill electricBill) {
 
-        Optional<ElectricBill> existingElectricOptional = electricRepo.findById(electricBill.getID());
+        Optional<ElectricBill> existingElectricOptional = electricRepo.findById(electricBill.getId());
         if (existingElectricOptional.isPresent()) {
             ElectricBill existingElectricBill = existingElectricOptional.get();
 
             // Update the fields of the existingWater with the values from updatedWater
             existingElectricBill.setDate(electricBill.getDate());
-            existingElectricBill.setType(electricBill.getType());
-            existingElectricBill.setUsage(electricBill.getUsage());
+            existingElectricBill.setElectricUsage(electricBill.getElectricUsage());
             existingElectricBill.setNumberOfDays(electricBill.getNumberOfDays());
             existingElectricBill.setElectricityRate(electricBill.getElectricityRate());
 
