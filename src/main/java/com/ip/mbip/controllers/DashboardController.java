@@ -21,17 +21,18 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DashboardController {
 
     @Autowired
-    private ElectricService electricService;
+    // private ElectricService electricService;
     private RecycleService recycleService;
 
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {
         // Iterable<Recycle> recycleList = recycleService.findAll(); // Assuming you
         // have a service for retrieving data
-        model.addAttribute("recycleList", recycleService.findAll());
-        Iterable<ElectricBill> electricBills = electricService.findAll();
-        model.addAttribute("electricBills", electricBills);
+        // model.addAttribute("recycleList", recycleService.findAll());
+        // Iterable<ElectricBill> electricBills = electricService.findAll();
+        // model.addAttribute("electricBills", electricBills);
 
+        model.addAttribute("recycleList", recycleService.findAll());
         Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
         model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
 
