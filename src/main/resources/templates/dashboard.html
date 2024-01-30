@@ -25,8 +25,8 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
-      <!-- Add this script tag to include Chart.js -->
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Add this script tag to include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body id="page-top">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                           <span
-                            th:text="${electricBills != null and electricBills.iterator().hasNext() ? electricBills.iterator().next().getCarbonFootprint() : 'N/A'}"
+                            th:text="${totalElectricCarbon != null ? totalElectricCarbon : 'N/A'}"
                           ></span>
                           KgCO₂
                         </div>
@@ -78,10 +78,13 @@
                         <div
                           class="text-md font-weight-bold text-primary text-uppercase mb-4"
                         >
-                          Recycle (Monthly)
+                          Carbon Footprint (Recycle Consumption)
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${totalRecycleCarbon}">
-                          Kg
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          <span
+                            th:text="${totalRecycleCarbon != null ? totalRecycleCarbon : 'N/A'}"
+                          ></span>
+                          KgCO₂
                         </div>
                       </div>
                       <div class="col-auto">
@@ -100,10 +103,13 @@
                         <div
                           class="text-md font-weight-bold text-primary text-uppercase mb-4"
                         >
-                          Water (Monthly)
+                          Carbon Footprint (Water Consumption)
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          Kg
+                          <span
+                            th:text="${totalWaterCarbon != null ? totalWaterCarbon : 'N/A'}"
+                          ></span>
+                          KgCO₂
                         </div>
                       </div>
                       <div class="col-auto">
@@ -121,11 +127,16 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <div class="text-md font-weight-bold text-primary text-uppercase mb-4">
+                    <div
+                      class="text-md font-weight-bold text-primary text-uppercase mb-4"
+                    >
                       Pie Chart
                     </div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                      <canvas id="myPieChart" style="max-height: 300px; max-width: 100%;"></canvas>
+                      <canvas
+                        id="myPieChart"
+                        style="max-height: 300px; max-width: 100%"
+                      ></canvas>
                     </div>
                   </div>
                 </div>
@@ -206,10 +217,10 @@
             },
           ],
         };
-    
+
         // Get the canvas element
         var ctx = document.getElementById("myPieChart").getContext("2d");
-    
+
         // Create a pie chart
         var myPieChart = new Chart(ctx, {
           type: "pie",

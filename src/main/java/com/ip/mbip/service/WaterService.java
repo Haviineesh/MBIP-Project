@@ -26,7 +26,7 @@ public class WaterService {
         water.setCarbonFootprint(water.calculateCarbonFootprint());
 
         if (existingWater.isPresent()) {
-            //add exception
+            // add exception
         } else {
             // Save the new WaterBill since there is no duplicate billNumber
             waterRepo.save(water);
@@ -59,13 +59,16 @@ public class WaterService {
         }
     }
 
-
     public Optional<WaterBill> findById(long id) {
         return waterRepo.findById(id);
     }
 
     public Double calculateTotalCarbonFootprint() {
-        return waterRepo.calculateTotalCarbonFootprint();
+        Double totalCarbonFootprint = waterRepo.calculateTotalCarbonFootprint();
+        if (totalCarbonFootprint != null) {
+            // Format the total carbon footprint to two decimal places
+            totalCarbonFootprint = Math.round(totalCarbonFootprint * 100.0) / 100.0;
+        }
+        return totalCarbonFootprint;
     }
-
 }

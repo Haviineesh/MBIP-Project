@@ -59,7 +59,7 @@ public class ElectricBill {
 
     public void setElectricUsage(double electricUsage) {
         this.electricUsage = electricUsage;
-        this.carbonFootprint = calculateCarbonFootprint();
+        setCarbonFootprint(calculateCarbonFootprint());
     }
 
     public int getNumberOfDays() {

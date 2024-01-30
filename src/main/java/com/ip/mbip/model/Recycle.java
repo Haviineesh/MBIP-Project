@@ -126,7 +126,7 @@ public class Recycle {
 
     public double calculateCarbonFootprint() {
         // Formula: {Water Consumption} * 0.286 kgCO2/m^3
-        return weight * 0.286f;
+        return weight * 0.286;
     }
 
 

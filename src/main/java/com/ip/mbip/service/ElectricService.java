@@ -23,6 +23,7 @@ public class ElectricService {
 
     public void addElectric(ElectricBill electricBill) {
         Optional<ElectricBill> existingElectric = electricRepo.findByBillNumber(electricBill.getBillNumber());
+        electricBill.setCarbonFootprint(electricBill.calculateCarbonFootprint());
 
         if (existingElectric.isPresent()) {
 
@@ -40,6 +41,8 @@ public class ElectricService {
     public void updateElectric(ElectricBill electricBill) {
 
         Optional<ElectricBill> existingElectricOptional = electricRepo.findById(electricBill.getId());
+        electricBill.setCarbonFootprint(electricBill.calculateCarbonFootprint());
+
         if (existingElectricOptional.isPresent()) {
             ElectricBill existingElectricBill = existingElectricOptional.get();
 
@@ -59,6 +62,10 @@ public class ElectricService {
 
     public Optional<ElectricBill> findById(long id) {
         return electricRepo.findById(id);
+    }
+
+    public Double calculateTotalCarbonFootprint() {
+        return electricRepo.calculateTotalCarbonFootprint();
     }
 
 }

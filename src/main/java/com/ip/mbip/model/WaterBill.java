@@ -131,7 +131,7 @@ public class WaterBill {
     // Method to calculate carbon footprint based on water consumption
     public double calculateCarbonFootprint() {
         // Formula: {Water Consumption} * 0.419 kgCO2/m^3
-        return waterUsage * 0.419f;
+        return waterUsage * 0.419;
     }
 
     // Method to calculate total water bill

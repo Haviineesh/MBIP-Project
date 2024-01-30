@@ -17,32 +17,36 @@ public class RecycleService {
     @Autowired
     private RecycleRepo recycleRepo;
 
-    public Iterable<Recycle> findAll(){
+    public Iterable<Recycle> findAll() {
         return recycleRepo.findAll();
     }
 
-    public void addRecycle(Recycle recycle){
+    public void addRecycle(Recycle recycle) {
         // Calculate and save carbon footprint before saving to the database
         recycle.setCarbonFootprint(recycle.calculateCarbonFootprint());
         recycleRepo.save(recycle);
     }
 
-    public void deleteById(long id){
+    public void deleteById(long id) {
         recycleRepo.deleteById(id);
     }
 
-    public void updateRecycle(Recycle recycle){
+    public void updateRecycle(Recycle recycle) {
         // Calculate and save carbon footprint before saving to the database
         recycle.setCarbonFootprint(recycle.calculateCarbonFootprint());
         recycleRepo.save(recycle);
     }
 
-    public Optional <Recycle> findById(long id){
+    public Optional<Recycle> findById(long id) {
         return recycleRepo.findById(id);
     }
 
     public Double calculateTotalCarbonFootprint() {
-        return recycleRepo.calculateTotalCarbonFootprint();
+        Double totalCarbonFootprint = recycleRepo.calculateTotalCarbonFootprint();
+        if (totalCarbonFootprint != null) {
+            // Format the total carbon footprint to two decimal places
+            totalCarbonFootprint = Math.round(totalCarbonFootprint * 100.0) / 100.0;
+        }
+        return totalCarbonFootprint;
     }
 }
-
