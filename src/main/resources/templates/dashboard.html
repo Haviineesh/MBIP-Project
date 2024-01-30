@@ -27,6 +27,7 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
     <!-- Add this script tag to include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
   </head>
 
   <body id="page-top">
@@ -88,7 +89,7 @@
                         </div>
                       </div>
                       <div class="col-auto">
-                        <i class="fas fa-calendar fa-4x text-gray-300"></i>
+                        <i class="fas fa-recycle fa-4x text-gray-300"></i>
                       </div>
                     </div>
                   </div>
@@ -113,7 +114,7 @@
                         </div>
                       </div>
                       <div class="col-auto">
-                        <i class="fas fa-calendar fa-4x text-gray-300"></i>
+                        <i class="fas fa-water fa-4x text-gray-300"></i>
                       </div>
                     </div>
                   </div>
@@ -206,27 +207,66 @@
 
     <script>
       // Wait for the DOM to be fully loaded
-      window.onload = function () {
-        // Dummy data for the pie chart
-        var data = {
-          labels: ["Category 1", "Category 2", "Category 3"],
-          datasets: [
-            {
-              data: [30, 50, 20],
-              backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
-            },
-          ],
-        };
+      document.addEventListener("DOMContentLoaded", function () {
+        // Fetch carbon data values from the server
+        fetchCarbonDataValues()
+          .then((data) => {
+            // Prepare data for the pie chart
+            var pieChartData = {
+              labels: ["Electric", "Recycle", "Water"],
+              datasets: [
+                {
+                  data: [data.electric, data.recycle, data.water],
+                  backgroundColor: ["#ff5733", "#1cc88a", "#36b9cc"],
+                },
+              ],
+            };
 
-        // Get the canvas element
-        var ctx = document.getElementById("myPieChart").getContext("2d");
+            // Get the canvas element
+            var ctx = document.getElementById("myPieChart").getContext("2d");
 
-        // Create a pie chart
-        var myPieChart = new Chart(ctx, {
-          type: "pie",
-          data: data,
-        });
-      };
+            // Create a pie chart
+            var myPieChart = new Chart(ctx, {
+              type: "pie",
+              data: pieChartData,
+              options: {
+                plugins: {
+                  datalabels: {
+                    formatter: (value, ctx) => {
+                      let sum = 0;
+                      let dataArr = ctx.chart.data.datasets[0].data;
+                      dataArr.forEach((data) => {
+                        sum += data;
+                      });
+                      let percentage = ((value / sum) * 100).toFixed(2) + "%"; // Calculate percentage
+                      return percentage;
+                    },
+                    color: "#fff",
+                    anchor: "end",
+                    align: "start",
+                  },
+                },
+              },
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching carbon data:", error);
+          });
+      });
+
+      function fetchCarbonDataValues() {
+        return fetch("/api/carbon-data")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            console.error("Error fetching carbon data:", error);
+            throw error;
+          });
+      }
     </script>
 
     <!-- Bootstrap core JavaScript-->

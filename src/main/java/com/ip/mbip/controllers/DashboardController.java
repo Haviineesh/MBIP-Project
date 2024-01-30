@@ -3,6 +3,7 @@ package com.ip.mbip.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ip.mbip.model.ElectricBill;
 import com.ip.mbip.model.Recycle;
@@ -47,6 +48,40 @@ public class DashboardController {
         model.addAttribute("totalWaterCarbon", totalWaterCarbon);
 
         return "dashboard";
+    }
+
+    @GetMapping("/api/carbon-data")
+    @ResponseBody
+    public CarbonData getCarbonData() {
+        Double totalElectricCarbon = electricService.calculateTotalCarbonFootprint();
+        Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
+        Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
+
+        return new CarbonData(totalElectricCarbon, totalRecycleCarbon, totalWaterCarbon);
+    }
+
+    static class CarbonData {
+        private Double electric;
+        private Double recycle;
+        private Double water;
+
+        public CarbonData(Double electric, Double recycle, Double water) {
+            this.electric = electric;
+            this.recycle = recycle;
+            this.water = water;
+        }
+
+        public Double getElectric() {
+            return electric;
+        }
+
+        public Double getRecycle() {
+            return recycle;
+        }
+
+        public Double getWater() {
+            return water;
+        }
     }
 
     @GetMapping("/blankfile")
