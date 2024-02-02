@@ -1,5 +1,6 @@
 package com.ip.mbip.service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,5 +81,22 @@ public class WaterService {
 
     public List<WaterBill> findByUser(User user) {
         return waterRepo.findByUser(user);
+    }
+
+    public Double calculateWaterTotalCarbonFootprint(List<WaterBill> waterBills) {
+        double totalCarbonFootprint = 0.0;
+        
+        // Iterate through the list of water bills
+        for (WaterBill bill : waterBills) {
+            // Add the carbon footprint of each bill to the total
+            totalCarbonFootprint += bill.getCarbonFootprint();
+        }
+        
+        // Format the total carbon footprint to two decimal places
+        DecimalFormat df = new DecimalFormat("#.##");
+        totalCarbonFootprint = Double.valueOf(df.format(totalCarbonFootprint));
+        
+        // Return the total carbon footprint
+        return totalCarbonFootprint;
     }
 }

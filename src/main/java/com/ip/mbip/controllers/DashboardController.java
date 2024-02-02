@@ -63,7 +63,7 @@ public class DashboardController {
                 List<WaterBill> waterBills = waterService.findAllByUserId(user.getID());
                 model.addAttribute("waterBills", waterBills);
 
-                Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
+                Double totalWaterCarbon = waterService.calculateWaterTotalCarbonFootprint(waterBills);
                 model.addAttribute("totalWaterCarbon", totalWaterCarbon);
 
                 Iterable<ElectricBill> electricBills = electricService.findAllByUserId(user.getID());
