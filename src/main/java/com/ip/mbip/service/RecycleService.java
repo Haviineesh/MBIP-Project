@@ -1,5 +1,6 @@
 package com.ip.mbip.service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,5 +59,16 @@ public class RecycleService {
 
     public List<Recycle> findByUser(User user) {
         return recycleRepo.findByUser(user);
+    }
+
+    public Double calculateRecycleTotalCarbonFootprint(Iterable<Recycle> recycleList) {
+        double totalCarbonFootprint = 0.0;
+        for (Recycle bill : recycleList) {
+            totalCarbonFootprint += bill.getCarbonFootprint();
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        totalCarbonFootprint = Double.valueOf(df.format(totalCarbonFootprint));
+
+        return totalCarbonFootprint;
     }
 }

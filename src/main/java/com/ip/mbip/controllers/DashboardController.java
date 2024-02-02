@@ -58,7 +58,6 @@ public class DashboardController {
                 // You can use the user ID as needed
                 model.addAttribute("userId", user.getID());
 
-                // potential fix start
                 // Retrieve water bills by user ID
                 List<WaterBill> waterBills = waterService.findAllByUserId(user.getID());
                 model.addAttribute("waterBills", waterBills);
@@ -71,39 +70,19 @@ public class DashboardController {
 
                 Double totalElectricCarbon = electricService.calculateElectricTotalCarbonFootprint(electricBills);
                 model.addAttribute("totalElectricCarbon", totalElectricCarbon);
-
+                // Retrieve recycle bills by user ID
                 Iterable<Recycle> recycleList = recycleService.findAllByUserId(user.getID());
                 model.addAttribute("recycleList", recycleList);
 
-                Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
+                Double totalRecycleCarbon = recycleService.calculateRecycleTotalCarbonFootprint(recycleList);
                 model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
 
-                // potential fix end
             }
         }
-
-        // Iterable<ElectricBill> electricBills = electricService.findAll();
-        // model.addAttribute("electricBills", electricBills);
-
-        // Iterable<Recycle> recycleList = recycleService.findAll();
-        // model.addAttribute("recycleList", recycleList);
-
-        // Iterable<WaterBill> waterBills = waterService.findAll();
-        // model.addAttribute("waterBills", waterBills);
-
-        // Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
-        // model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
-
-        // Double totalElectricCarbon = electricService.calculateTotalCarbonFootprint();
-        // model.addAttribute("totalElectricCarbon", totalElectricCarbon);
-
-        // // Fetch and calculate total water carbon
-        // Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
-        // model.addAttribute("totalWaterCarbon", totalWaterCarbon);
-
         return "dashboard";
     }
 
+    //What is this for
     @GetMapping("/api/carbon-data")
     @ResponseBody
     public CarbonData getCarbonData() {
