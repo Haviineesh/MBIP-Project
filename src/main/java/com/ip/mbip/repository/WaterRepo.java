@@ -1,10 +1,13 @@
 package com.ip.mbip.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.ip.mbip.model.Recycle;
+import com.ip.mbip.model.User;
 import com.ip.mbip.model.WaterBill;
 
 public interface WaterRepo extends CrudRepository<WaterBill, Long>{
@@ -13,4 +16,5 @@ public interface WaterRepo extends CrudRepository<WaterBill, Long>{
     @Query("SELECT SUM(waterBill.carbonFootprint) FROM WaterBill waterBill")
     Double calculateTotalCarbonFootprint();
 
+     List<WaterBill> findByUser(User user);
 }

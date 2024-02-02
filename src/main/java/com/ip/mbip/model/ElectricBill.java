@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +25,10 @@ public class ElectricBill {
     private int numberOfDays;
     private double electricityRate;
     private double carbonFootprint;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public ElectricBill() {
     }
@@ -102,6 +108,14 @@ public class ElectricBill {
     public double calculateCarbonFootprint() {
         // Assuming a constant conversion rate of 0.584 kgCO2/kWh
         return electricUsage * 0.584;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // Override equals and hashCode methods for proper comparison

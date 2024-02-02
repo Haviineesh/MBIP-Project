@@ -1,10 +1,13 @@
 package com.ip.mbip.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ip.mbip.model.ElectricBill;
+import com.ip.mbip.model.User;
 import com.ip.mbip.model.WaterBill;
 import com.ip.mbip.repository.WaterRepo;
 
@@ -70,5 +73,9 @@ public class WaterService {
             totalCarbonFootprint = Math.round(totalCarbonFootprint * 100.0) / 100.0;
         }
         return totalCarbonFootprint;
+    }
+
+    public List<WaterBill> findByUser(User user) {
+        return waterRepo.findByUser(user);
     }
 }

@@ -1,11 +1,13 @@
 package com.ip.mbip.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ip.mbip.model.Recycle;
+import com.ip.mbip.model.User;
 import com.ip.mbip.repository.RecycleRepo;
 
 import jakarta.transaction.Transactional;
@@ -48,5 +50,9 @@ public class RecycleService {
             totalCarbonFootprint = Math.round(totalCarbonFootprint * 100.0) / 100.0;
         }
         return totalCarbonFootprint;
+    }
+
+    public List<Recycle> findByUser(User user) {
+        return recycleRepo.findByUser(user);
     }
 }

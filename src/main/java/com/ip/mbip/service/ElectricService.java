@@ -1,11 +1,14 @@
 package com.ip.mbip.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ip.mbip.model.ElectricBill;
+import com.ip.mbip.model.Recycle;
+import com.ip.mbip.model.User;
 import com.ip.mbip.repository.ElectricRepo;
 
 import jakarta.transaction.Transactional;
@@ -68,4 +71,7 @@ public class ElectricService {
         return electricRepo.calculateTotalCarbonFootprint();
     }
 
+    public List<ElectricBill> findByUser(User user) {
+        return electricRepo.findByUser(user);
+    }
 }

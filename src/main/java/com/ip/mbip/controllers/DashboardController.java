@@ -28,6 +28,8 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {
+
+        
         Iterable<ElectricBill> electricBills = electricService.findAll();
         model.addAttribute("electricBills", electricBills);
 

@@ -1,5 +1,7 @@
 package com.ip.mbip.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,13 +11,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ip.mbip.model.ElectricBill;
+import com.ip.mbip.model.Recycle;
+import com.ip.mbip.model.User;
 import com.ip.mbip.service.ElectricService;
+import com.ip.mbip.service.UserService;
 
 @Controller
 public class ElectricController {
 
     @Autowired
     private ElectricService electricService;
+
+    @Autowired
+    private UserService userService; // Create UserService
 
     @GetMapping("/electricBillForm")
     public String showElectricBillForm(Model model) {
@@ -24,13 +32,18 @@ public class ElectricController {
     }
 
     @GetMapping("/viewElectric")
-    public String showElectricTable(Model model) {
-        model.addAttribute("electric", electricService.findAll());
+    public String showElectricTable(Model model, Principal principal) {
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+        model.addAttribute("electric", electricService.findByUser(user));
         return "electricPage";
     }
 
     @PostMapping("/saveElectric")
-    public String addElectric(ElectricBill electricBill, Model model) {
+    public String addElectric(ElectricBill electricBill, Model model, Principal principal) {
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+        electricBill.setUser(user);
         electricService.addElectric(electricBill);
         return "redirect:/viewElectric";
     }

@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +28,10 @@ public class WaterBill {
     private int numberOfDays;
     private double waterRate;
     private double carbonFootprint;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Lob
     @Column(name = "bill_image")
@@ -132,6 +138,14 @@ public class WaterBill {
     public double calculateCarbonFootprint() {
         // Formula: {Water Consumption} * 0.419 kgCO2/m^3
         return waterUsage * 0.419;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     // Method to calculate total water bill

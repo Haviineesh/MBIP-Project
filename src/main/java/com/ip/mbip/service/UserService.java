@@ -25,6 +25,10 @@ public class UserService implements UserDetailsService {
     public UserService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
+    //add izat
+    public User findByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
