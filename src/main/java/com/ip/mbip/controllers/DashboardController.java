@@ -1,5 +1,9 @@
 package com.ip.mbip.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,13 +11,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ip.mbip.model.ElectricBill;
 import com.ip.mbip.model.Recycle;
+import com.ip.mbip.model.User;
 import com.ip.mbip.model.WaterBill;
 import com.ip.mbip.service.ElectricService;
 import com.ip.mbip.service.RecycleService;
+import com.ip.mbip.service.UserService;
 import com.ip.mbip.service.WaterService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class DashboardController {
+
+    @Autowired
+    private UserService userService;
 
     private final ElectricService electricService;
     private final RecycleService recycleService;
@@ -27,8 +38,25 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    public String showDashboard(Model model) {
+    public String showDashboard(HttpServletRequest request, Model model) {
 
+         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Check if the authentication object is not null and the user is authenticated
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Retrieve the principal from the authentication object
+            Object principal = authentication.getPrincipal();
+
+            // Check if the principal is an instance of UserDetails
+            if (principal instanceof UserDetails) {
+                // Cast the principal to UserDetails to access user details
+                UserDetails userDetails = (UserDetails) principal;
+
+                User user = (User)userService.findByUsername(userDetails.getUsername());
+                // You can use the user ID as needed
+                model.addAttribute("userId", user.getID());
+            }
+        }
         
         Iterable<ElectricBill> electricBills = electricService.findAll();
         model.addAttribute("electricBills", electricBills);
