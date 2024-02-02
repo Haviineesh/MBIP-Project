@@ -65,11 +65,11 @@ public class DashboardController {
 
                 Double totalWaterCarbon = waterService.calculateWaterTotalCarbonFootprint(waterBills);
                 model.addAttribute("totalWaterCarbon", totalWaterCarbon);
-
+                // Retrieve electric bills by user ID
                 Iterable<ElectricBill> electricBills = electricService.findAllByUserId(user.getID());
                 model.addAttribute("electricBills", electricBills);
 
-                Double totalElectricCarbon = electricService.calculateTotalCarbonFootprint();
+                Double totalElectricCarbon = electricService.calculateElectricTotalCarbonFootprint(electricBills);
                 model.addAttribute("totalElectricCarbon", totalElectricCarbon);
 
                 Iterable<Recycle> recycleList = recycleService.findAllByUserId(user.getID());
@@ -77,7 +77,6 @@ public class DashboardController {
 
                 Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
                 model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
-        
 
                 // potential fix end
             }

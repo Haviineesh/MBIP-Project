@@ -1,5 +1,6 @@
 package com.ip.mbip.service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,5 +77,16 @@ public class ElectricService {
 
     public List<ElectricBill> findByUser(User user) {
         return electricRepo.findByUser(user);
+    }
+
+    public Double calculateElectricTotalCarbonFootprint(Iterable<ElectricBill> electricBills) {
+        double totalCarbonFootprint = 0.0;
+        for (ElectricBill bill : electricBills) {
+            totalCarbonFootprint += bill.getCarbonFootprint();
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        totalCarbonFootprint = Double.valueOf(df.format(totalCarbonFootprint));
+
+        return totalCarbonFootprint;
     }
 }
