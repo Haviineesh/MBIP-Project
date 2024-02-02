@@ -1,5 +1,7 @@
 package com.ip.mbip.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,7 +42,7 @@ public class DashboardController {
     @GetMapping("/dashboard")
     public String showDashboard(HttpServletRequest request, Model model) {
 
-         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // Check if the authentication object is not null and the user is authenticated
         if (authentication != null && authentication.isAuthenticated()) {
@@ -52,30 +54,53 @@ public class DashboardController {
                 // Cast the principal to UserDetails to access user details
                 UserDetails userDetails = (UserDetails) principal;
 
-                User user = (User)userService.findByUsername(userDetails.getUsername());
+                User user = (User) userService.findByUsername(userDetails.getUsername());
                 // You can use the user ID as needed
                 model.addAttribute("userId", user.getID());
+
+                // potential fix start
+                // Retrieve water bills by user ID
+                List<WaterBill> waterBills = waterService.findAllByUserId(user.getID());
+                model.addAttribute("waterBills", waterBills);
+
+                Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
+                model.addAttribute("totalWaterCarbon", totalWaterCarbon);
+
+                Iterable<ElectricBill> electricBills = electricService.findAllByUserId(user.getID());
+                model.addAttribute("electricBills", electricBills);
+
+                Double totalElectricCarbon = electricService.calculateTotalCarbonFootprint();
+                model.addAttribute("totalElectricCarbon", totalElectricCarbon);
+
+                Iterable<Recycle> recycleList = recycleService.findAllByUserId(user.getID());
+                model.addAttribute("recycleList", recycleList);
+
+                Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
+                model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
+        
+
+                // potential fix end
             }
         }
-        
-        Iterable<ElectricBill> electricBills = electricService.findAll();
-        model.addAttribute("electricBills", electricBills);
 
-        Iterable<Recycle> recycleList = recycleService.findAll();
-        model.addAttribute("recycleList", recycleList);
+        // Iterable<ElectricBill> electricBills = electricService.findAll();
+        // model.addAttribute("electricBills", electricBills);
 
-        Iterable<WaterBill> waterBills = waterService.findAll();
-        model.addAttribute("waterBills", waterBills);
+        // Iterable<Recycle> recycleList = recycleService.findAll();
+        // model.addAttribute("recycleList", recycleList);
 
-        Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
-        model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
+        // Iterable<WaterBill> waterBills = waterService.findAll();
+        // model.addAttribute("waterBills", waterBills);
 
-        Double totalElectricCarbon = electricService.calculateTotalCarbonFootprint();
-        model.addAttribute("totalElectricCarbon", totalElectricCarbon);
+        // Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
+        // model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
 
-        // Fetch and calculate total water carbon
-        Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
-        model.addAttribute("totalWaterCarbon", totalWaterCarbon);
+        // Double totalElectricCarbon = electricService.calculateTotalCarbonFootprint();
+        // model.addAttribute("totalElectricCarbon", totalElectricCarbon);
+
+        // // Fetch and calculate total water carbon
+        // Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
+        // model.addAttribute("totalWaterCarbon", totalWaterCarbon);
 
         return "dashboard";
     }

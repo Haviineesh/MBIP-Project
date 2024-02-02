@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ip.mbip.model.ElectricBill;
-import com.ip.mbip.model.Recycle;
 import com.ip.mbip.model.User;
 import com.ip.mbip.repository.ElectricRepo;
 
@@ -19,6 +18,10 @@ public class ElectricService {
 
     @Autowired
     private ElectricRepo electricRepo;
+
+    public List<ElectricBill> findAllByUserId(Long userId) {
+        return electricRepo.findByUserId(userId);
+    }
 
     public Iterable<ElectricBill> findAll() {
         return electricRepo.findAll();

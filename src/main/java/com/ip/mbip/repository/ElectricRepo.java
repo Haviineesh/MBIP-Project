@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.ip.mbip.model.ElectricBill;
-import com.ip.mbip.model.Recycle;
 import com.ip.mbip.model.User;
 
 public interface ElectricRepo extends CrudRepository<ElectricBill, Long> {
@@ -17,4 +16,7 @@ public interface ElectricRepo extends CrudRepository<ElectricBill, Long> {
     Double calculateTotalCarbonFootprint();
 
     List<ElectricBill> findByUser(User user);
+
+    List<ElectricBill> findByUserId(Long userId);
+
 }

@@ -16,4 +16,6 @@ public interface RecycleRepo extends CrudRepository<Recycle, Long> {
 
     List<Recycle> findByUser(User user);
 
+    List<Recycle> findByUserId(Long userId);
+
 }

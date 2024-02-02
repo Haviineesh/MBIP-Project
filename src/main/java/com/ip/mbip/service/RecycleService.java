@@ -19,6 +19,10 @@ public class RecycleService {
     @Autowired
     private RecycleRepo recycleRepo;
 
+    public List<Recycle> findAllByUserId(Long userId) {
+        return recycleRepo.findByUserId(userId);
+    }
+
     public Iterable<Recycle> findAll() {
         return recycleRepo.findAll();
     }

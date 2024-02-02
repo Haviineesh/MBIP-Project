@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ip.mbip.model.ElectricBill;
 import com.ip.mbip.model.User;
 import com.ip.mbip.model.WaterBill;
 import com.ip.mbip.repository.WaterRepo;
@@ -19,6 +18,10 @@ public class WaterService {
 
     @Autowired
     private WaterRepo waterRepo;
+
+    public List<WaterBill> findAllByUserId(Long userId) {
+        return waterRepo.findByUserId(userId);
+    }
 
     public Iterable<WaterBill> findAll() {
         return waterRepo.findAll();
