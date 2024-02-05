@@ -72,7 +72,13 @@ public class ElectricService {
     }
 
     public Double calculateTotalCarbonFootprint() {
-        return electricRepo.calculateTotalCarbonFootprint();
+        // return electricRepo.calculateTotalCarbonFootprint();
+        Double totalCarbonFootprint = electricRepo.calculateTotalCarbonFootprint();
+        if (totalCarbonFootprint != null) {
+            // Format the total carbon footprint to two decimal places
+            totalCarbonFootprint = Math.round(totalCarbonFootprint * 100.0) / 100.0;
+        }
+        return totalCarbonFootprint;
     }
 
     public List<ElectricBill> findByUser(User user) {

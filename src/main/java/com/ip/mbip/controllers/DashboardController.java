@@ -82,15 +82,28 @@ public class DashboardController {
         return "dashboard";
     }
 
-    //What is this for
+    // What is this for --> pie chart
     @GetMapping("/api/carbon-data")
     @ResponseBody
     public CarbonData getCarbonData() {
-        Double totalElectricCarbon = electricService.calculateTotalCarbonFootprint();
-        Double totalRecycleCarbon = recycleService.calculateTotalCarbonFootprint();
-        Double totalWaterCarbon = waterService.calculateTotalCarbonFootprint();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User user = userService.findByUsername(userDetails.getUsername());
 
-        return new CarbonData(totalElectricCarbon, totalRecycleCarbon, totalWaterCarbon);
+            // Fetch data specific to the authenticated user
+            Double totalElectricCarbon = electricService.calculateElectricTotalCarbonFootprint(
+                    electricService.findAllByUserId(user.getID()));
+            Double totalRecycleCarbon = recycleService
+                    .calculateRecycleTotalCarbonFootprint(recycleService.findAllByUserId(user.getID()));
+            Double totalWaterCarbon = waterService
+                    .calculateWaterTotalCarbonFootprint(waterService.findAllByUserId(user.getID()));
+
+            return new CarbonData(totalElectricCarbon, totalRecycleCarbon, totalWaterCarbon);
+        } else {
+            // Return null or handle unauthenticated access
+            return null;
+        }
     }
 
     static class CarbonData {
