@@ -1,13 +1,9 @@
 package com.ip.mbip.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.Objects;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user")
@@ -17,14 +13,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Username is required")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
     @Column(length = 50, nullable = false, unique = true)
     private String username;
 
+    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 300, message = "Password must be at least 6 characters")
     @Column(length = 300, nullable = false)
     private String password;
 
-    @Column(length = 50, nullable = false, unique = true) 
+    @NotBlank(message = "Email is required")
+    @Size(max = 50, message = "Email must be less than 50 characters")
+    @Column(length = 50, nullable = false, unique = true)
     private String email;
+
+    @Column(length = 100)
+    private String resetToken;
 
     public User() {
     }
@@ -36,7 +41,16 @@ public class User {
         this.email = email;
     }
 
-    // getter
+    // getters and setters for resetToken
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    // other getters and setters
     public Long getID() {
         return id;
     }

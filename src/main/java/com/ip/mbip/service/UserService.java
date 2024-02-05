@@ -2,6 +2,7 @@ package com.ip.mbip.service;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,9 +26,13 @@ public class UserService implements UserDetailsService {
     public UserService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
-    //add izat
+
     public User findByUsername(String username) {
         return userRepo.findByUsername(username);
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
     }
 
     @Override
@@ -69,5 +74,42 @@ public class UserService implements UserDetailsService {
 
     public Optional<User> findById(Long id) {
         return userRepo.findById(id);
+    }
+
+    public String generateResetToken(String email) {
+        User user = userRepo.findByEmail(email);
+
+        if (user != null) {
+            String resetToken = UUID.randomUUID().toString();
+            user.setResetToken(resetToken);
+            userRepo.save(user);
+            return resetToken;
+        }
+        return null;
+    }
+
+    public boolean isValidToken(String token) {
+        User user = userRepo.findByResetToken(token);
+        return user != null;
+    }
+
+    public User findUserByResetToken(String token) {
+        return userRepo.findByResetToken(token);
+    }
+
+    public void updateResetToken(User user, String token) {
+        user.setResetToken(token);
+        userRepo.save(user);
+    }
+
+    public void updateUserPassword(User user, String newPassword) {
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setResetToken(null);
+        userRepo.save(user);
+    }
+
+    public boolean isPasswordValid(String password) {
+        // Add your password validation logic here
+        return password.length() >= 6;
     }
 }
