@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ip.mbip.model.ElectricBill;
-import com.ip.mbip.model.Recycle;
 import com.ip.mbip.model.User;
 import com.ip.mbip.service.ElectricService;
 import com.ip.mbip.service.UserService;
