@@ -77,6 +77,8 @@ public class DashboardController {
                 Double totalRecycleCarbon = recycleService.calculateRecycleTotalCarbonFootprint(recycleList);
                 model.addAttribute("totalRecycleCarbon", totalRecycleCarbon);
 
+                Double totalCarbon = totalWaterCarbon + totalElectricCarbon + totalRecycleCarbon;
+                model.addAttribute("totalCarbon", totalCarbon);
             }
         }
         return "dashboard";
